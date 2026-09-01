@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 
 from flask_jwt_extended import (
@@ -209,13 +209,7 @@ def generate_qr_code(certificate_number):
 
 @app.route("/", methods=["GET"])
 def home():
-
-    return {
-        "message": "Legal Metrology Backend is running",
-        "status": "online",
-        "version": "1.0"
-    }, 200
-
+    return send_from_directory("../frontend", "index.html")
 
 # ============================================================
 # USER REGISTRATION
