@@ -208,13 +208,13 @@ def generate_qr_code(certificate_number):
 # HOME / HEALTH CHECK
 # ============================================================
 
-@app.route("/", methods=["GET"])
-def home():
+@app.route("/<path:filename>")
+def frontend_files(filename):
     frontend_dir = os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
         "frontend"
     )
-    return send_from_directory(frontend_dir, "index.html")
+    return send_from_directory(frontend_dir, filename)
 
 # ============================================================
 # USER REGISTRATION
