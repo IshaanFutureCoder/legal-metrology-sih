@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Verification</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+  <main class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-8">
+    <div class="text-center mb-6">
+      <h1 class="text-2xl font-bold text-slate-900">Legal Metrology Certificate Verification</h1>
+      <p class="text-sm text-slate-500 mt-2">Verify a digital certificate using its certificate number.</p>
+    </div>
+
+    <form id="verify-form" class="flex gap-2 mb-6">
+      <input id="certificate-number" required class="flex-1 border rounded-lg px-3 py-2" placeholder="CERT-...">
+      <button class="bg-[#16233F] text-white rounded-lg px-4 py-2 font-semibold">Verify</button>
+    </form>
+
+    <section id="result" class="rounded-xl border p-5 text-sm text-slate-600">
+      Enter a certificate number to check its status.
+    </section>
+  </main>
+
+<script>
+const API_BASE = localStorage.getItem('LM_API_BASE') || 'http://127.0.0.1:5000';
+const result = document.getElementById('result');
+const input = document.getElementById('certificate-number');
+
+function esc(v){
+  return String(v ?? '').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+}
+
+async function verify(number){
+  result.innerHTML = '<p>Checking certificate…</p>';
+  try {
+    const response = await fetch(`${API_BASE}/verify/${encodeURIComponent(number)}`);
+    const data = await response.json();
+    if (data.valid) {
+      const c = data.certificate;
+      result.innerHTML = `
+        <div class="rounded-lg bg-green-50 border border-green-200 p-4">
+          <p class="font-bold text-green-800 text-lg">✓ Certificate is valid</p>
+          <div class="mt-3 space-y-1 text-green-900">
+            <p><b>Certificate:</b> ${esc(c.certificate_number)}</p>
+            <p><b>Instrument:</b> ${esc(c.instrument_number)}</p>
+            <p><b>Issue date:</b> ${esc(c.issue_date)}</p>
+            <p><b>Valid until:</b> ${esc(c.valid_until)}</p>
+            <p><b>Status:</b> ${esc(c.status)}</p>
+          </div>
+        </div>`;
+    } else {
+      result.innerHTML = `
+        <div class="rounded-lg bg-red-50 border border-red-200 p-4">
+          <p class="font-bold text-red-800 text-lg">✗ Certificate is not valid</p>
+          <p class="mt-2 text-red-900">${esc(data.message || 'Certificate could not be verified.')}</p>
+        </div>`;
+    }
+  } catch (e) {
+    result.innerHTML = `<div class="rounded-lg bg-red-50 border border-red-200 p-4"><p class="font-bold text-red-800">Unable to reach verification service.</p><p class="mt-2">Make sure the Flask backend is running.</p></div>`;
+  }
+}
+
+document.getElementById('verify-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  verify(input.value.trim());
+});
+
+const pathParts = location.pathname.split('/').filter(Boolean);
+const last = pathParts[pathParts.length - 1] || '';
+const queryNumber = new URLSearchParams(location.search).get('certificate');
+const possible = queryNumber || (last !== 'verify.html' ? decodeURIComponent(last) : '');
+if (possible && possible.startsWith('CERT-')) {
+  input.value = possible;
+  verify(possible);
+}
+</script>
+</body>
+</html>

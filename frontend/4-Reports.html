@@ -1,0 +1,375 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Reports Management - Legal Metrology Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#bcc7dd",
+                        "secondary-container": "#d5e0f7",
+                        "on-surface-variant": "#43474f",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-background": "#181c1e",
+                        "inverse-surface": "#2d3133",
+                        "background": "#f7fafc",
+                        "surface": "#f7fafc",
+                        "secondary": "#545f72",
+                        "surface-container-high": "#e5e9eb",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#003366",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c3c6d1",
+                        "surface-container": "#ebeef0",
+                        "tertiary-container": "#cca830",
+                        "surface-bright": "#f7fafc",
+                        "on-primary-container": "#799dd6",
+                        "primary": "#001e40",
+                        "on-surface": "#181c1e",
+                        "tertiary": "#735c00",
+                        "on-secondary-container": "#586377",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "on-tertiary-container": "#4f3e00",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#a7c8ff",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "surface-variant": "#e0e3e5",
+                        "inverse-on-surface": "#eef1f3",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#001b3c",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f1f4f6",
+                        "primary-fixed": "#d5e3ff",
+                        "outline": "#737780",
+                        "secondary-fixed": "#d8e3fa",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#d7dadc",
+                        "tertiary-fixed": "#ffe088",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "surface-tint": "#3a5f94",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "on-secondary-fixed": "#111c2c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "max-width": "1280px",
+                        "gutter": "24px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "body-md": ["Inter"],
+                        "table-data": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-bold": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "table-data": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        html, body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #f7fafc;
+        min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    .subtle-shadow {
+        box-shadow: 0px 4px 12px rgba(0, 51, 102, 0.04);
+    }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen w-full flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant h-screen w-64 fixed left-0 top-0 flex-col p-4 gap-2 z-20">
+<div class="flex items-center gap-3 mb-6 px-2">
+<img class="w-8 h-8 object-contain rounded-full" data-alt="National Emblem logo, institutional style, modern corporate aesthetic with stark contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKgeRh2r6ZZjMKzL2BXzgREhuNOoVXV09WtPpb86cucXRuFbkifea21g1D72WXu0JC5FQsV6_VwSNaxb-JpMEintYVngkfMu3bMz6QoLoG4ygdqLYYRgZxPQ5R_jm5uz1cbLQQbtHJA2KyBNuo4V0aS3RDaMvOdeqPUAP3h8afjB_-6g2CYNBZkkxLUcNBdbo840DGQEnZJoXYYsni0QHFRjdf2QpynH_RLS2vr4WfYAIGO43X3_Ex">
+<div>
+<h1 class="text-headline-sm font-headline-md text-primary dark:text-primary-fixed leading-tight">Metrology Authority</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Regulatory Division</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1"><button id="newApplicationBtn" type="button" class="w-full bg-primary-container text-on-primary-container font-label-bold text-label-bold py-3 rounded-lg mb-2 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+            New Application
+        </button>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-on-surface-variant rounded-xl font-label-bold text-label-bold" href="1-Dashboard.html">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-on-surface-variant rounded-xl font-label-bold text-label-bold" href="2-Application.html">
+<span class="material-symbols-outlined">description</span>
+                Applications
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-on-surface-variant rounded-xl font-label-bold text-label-bold" href="3-Verification.html">
+<span class="material-symbols-outlined">verified_user</span>
+                Verification
+            </a>
+<!-- Active: Reports -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container dark:bg-primary dark:text-on-primary rounded-xl font-label-bold text-label-bold Active: scale-95 transition-transform duration-150" href="4-Reports.html">
+<span class="material-symbols-outlined">analytics</span>
+                Reports
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Web) -->
+<header class="hidden md:flex bg-surface dark:bg-on-background border-b border-outline-variant dark:border-on-surface-variant docked full-width top-0 z-10 shrink-0">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-max-width mx-auto h-16">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">
+                    Legal Metrology Portal
+                </div>
+<div class="flex items-center gap-6">
+<nav class="flex items-center gap-6"></nav>
+<div class="flex items-center gap-4 border-l border-outline-variant pl-6">
+<button id="notifBtn" onclick="toggleNotifPanel(true)" class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute -top -right w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="relative">
+<img id="avatarBtn" onclick="toggleSettingsMenu()" alt="Official Profile Avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover cursor-pointer" data-alt="Official Profile Avatar, professional headshot, high contrast, clean background, modern corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9YJ7RkSpvT81coDVURy_wdjrlBvirpfxiVHtDAx2MDzD7TnMFhwBDOuI9tOSI4eZ-w1MkWThC1QUHfWSBcISydHkAo9hwB4kbSxhO57Os_P-qJXAHeW8hr-u9fwcgeBhgDLJQR3DdGyyDLxEEiikEREaQq9Na6Jp8o8nLM9y9YNpawnXemcUkBpTM-U0TmNEK1AybeBruCW72AWqOcGNpvN0PRqxWTN8an9s8TFZ1uQ3nB3-ITyvP">
+<div id="settingsMenu"
+     class="hidden absolute right-0 top-full mt-2 w-64 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-2xl z-50 py-2">
+  <button type="button" data-menu-action="profile" class="w-full flex items-center justify-between px-4 py-2 text-[14px] text-on-background hover:bg-surface-container-high transition-colors">
+    <span class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-secondary">badge</span>Profile</span>
+  </button>
+  <button type="button" data-menu-action="settings" class="w-full flex items-center justify-between px-4 py-2 text-[14px] text-on-background hover:bg-surface-container-high transition-colors">
+    <span class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-secondary">settings</span>Account Settings</span>
+  </button>
+  <button type="button" data-menu-action="appearance" class="w-full flex items-center justify-between px-4 py-2 text-[14px] text-on-background hover:bg-surface-container-high transition-colors">
+    <span class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-secondary">dark_mode</span>Appearance</span>
+    <span class="material-symbols-outlined text-[16px] text-on-surface-variant">chevron_right</span>
+  </button>
+  <div class="my-2 border-t border-outline-variant"></div>
+  <button type="button" data-menu-action="help" class="w-full flex items-center px-4 py-2 text-[14px] text-on-background hover:bg-surface-container-high transition-colors">
+    <span class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-secondary">contact_support</span>Help &amp; Support</span>
+  </button>
+  <div class="my-2 border-t border-outline-variant"></div>
+  <button type="button" data-menu-action="logout" class="w-full flex items-center px-4 py-2 text-[14px] text-error hover:bg-error-container transition-colors">
+    <span class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px]">logout</span>Log Out</span>
+  </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-margin-mobile md:p-margin-desktop flex-1 max-w-max-width mx-auto w-full flex flex-col gap-gutter">
+<!-- Reports Overview Header -->
+<div class="mb-4">
+<h2 class="text-headline-lg text-primary mb-2">Reports Overview</h2>
+<p class="text-body-lg text-secondary">Manage and download generated metrology reports.</p>
+</div>
+<!-- Main Content: Reports -->
+<div class="grid grid-cols-1 gap-gutter">
+<!-- Reports List -->
+<section class="flex flex-col gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden subtle-shadow">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="font-label-bold text-label-bold text-on-surface-variant py-3 px-6 uppercase tracking-wider w-1/2">Report Name</th>
+<th class="font-label-bold text-label-bold text-on-surface-variant py-3 px-6 uppercase tracking-wider w-1/6">Type</th>
+<th class="font-label-bold text-label-bold text-on-surface-variant py-3 px-6 uppercase tracking-wider w-1/6">Generated Date</th>
+<th class="font-label-bold text-label-bold text-on-surface-variant py-3 px-6 text-right uppercase tracking-wider w-1/6">Actions</th>
+</tr>
+</thead>
+<tbody class="font-table-data text-table-data divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-6 font-medium flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">description</span>
+                                        Quarterly Verification Summary
+                                    </td>
+<td class="py-4 px-6"><span class="inline-flex items-center bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-[12px] font-bold">Summary</span></td>
+<td class="py-4 px-6 text-secondary">Live data</td>
+<td class="py-4 px-6 text-right">
+<button class="text-primary hover:text-primary-container font-medium text-sm flex items-center justify-end gap-1 w-full">
+<span class="material-symbols-outlined text-sm">download</span> Download
+                                        </button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-6 font-medium flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">description</span>
+                                        Compliance Audit Report
+                                    </td>
+<td class="py-4 px-6"><span class="inline-flex items-center bg-error-container text-on-error-container px-2 py-1 rounded text-[12px] font-bold">Audit</span></td>
+<td class="py-4 px-6 text-secondary">Live data</td>
+<td class="py-4 px-6 text-right">
+<button class="text-primary hover:text-primary-container font-medium text-sm flex items-center justify-end gap-1 w-full">
+<span class="material-symbols-outlined text-sm">download</span> Download
+                                        </button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-6 font-medium flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">description</span>
+                                        Instrument Revenue Report
+                                    </td>
+<td class="py-4 px-6"><span class="inline-flex items-center bg-tertiary-container text-on-tertiary-container px-2 py-1 rounded text-[12px] font-bold">Financial</span></td>
+<td class="py-4 px-6 text-secondary">Live data</td>
+<td class="py-4 px-6 text-right">
+<button class="text-primary hover:text-primary-container font-medium text-sm flex items-center justify-end gap-1 w-full">
+<span class="material-symbols-outlined text-sm">download</span> Download
+                                        </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+<!-- Bottom Alert Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+<!-- Action Required Card -->
+<div class="bg-surface-container-lowest border border-error rounded-xl p-6 subtle-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-error mb-3">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">warning</span>
+<h4 class="text-headline-md font-label-bold text-error">Action Required</h4>
+</div>
+<p class="text-body-md text-on-surface-variant mb-4">Use the live application records above to review current workflow activity.</p>
+</div>
+<button class="self-start px-4 py-2 bg-error text-on-error rounded-lg font-label-bold hover:opacity-90 transition-opacity">Review Applications</button>
+</div>
+<!-- System Update Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 subtle-shadow flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-primary mb-3">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">info</span>
+<h4 class="text-headline-md font-label-bold text-primary">System Update</h4>
+</div>
+<p class="text-body-md text-on-surface-variant mb-4">Reports are generated from the current application and certificate records.</p>
+</div>
+<button class="self-start px-4 py-2 border border-outline-variant text-on-surface rounded-lg font-label-bold hover:bg-surface-container-low transition-colors">View Applications</button>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-auto bg-surface-container-highest dark:bg-on-background border-t border-outline-variant w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 font-body-sm text-body-sm text-on-surface dark:text-on-surface-variant shrink-0">
+<div class="">
+                © 2026 Department of Legal Metrology • SIH Prototype
+            </div>
+<div class="text-on-surface-variant">SIH prototype • Demonstration build</div>
+</footer>
+</main>
+
+
+
+<!-- ===== Notification Overlay + Slide Panel ===== -->
+<div id="notifOverlay" onclick="toggleNotifPanel(false)"
+     class="fixed inset-0 bg-black/40 opacity-0 pointer-events-none transition-opacity duration-300 z-40">
+</div>
+
+<aside id="notifPanel"
+       class="fixed top-0 right-0 h-full w-full max-w-[380px] bg-surface-container-lowest border-l border-outline-variant shadow-2xl z-50 flex flex-col translate-x-full transition-transform duration-300 ease-out">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between px-5 py-4 border-b border-outline-variant">
+    <h2 class="font-headline-md text-headline-md text-on-background">Notifications</h2>
+    <button onclick="toggleNotifPanel(false)" class="text-secondary hover:text-primary">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <!-- Controls -->
+  <div class="flex items-center justify-between px-5 py-3">
+    <button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-bold text-[13px]">
+      All Updates
+      <span class="material-symbols-outlined text-[16px]">expand_more</span>
+    </button>
+    <button class="text-secondary hover:text-primary font-label-bold text-[13px] border border-outline-variant rounded-lg px-3 py-1.5">
+      Mark All Read
+    </button>
+  </div>
+
+  <div class="px-5 pb-2 pt-1 font-label-bold text-[12px] text-on-surface-variant uppercase tracking-wider">Older</div>
+
+  <!-- List -->
+  <div id="notifList" class="flex-1 overflow-y-auto px-3 pb-4 flex flex-col gap-1"></div>
+</aside>
+<!-- NOTIFICATION PANEL -->
+<script>
+  const notifOverlay = document.getElementById('notifOverlay');
+  const notifPanel = document.getElementById('notifPanel');
+
+  function toggleNotifPanel(open) {
+    if (open) {
+      notifOverlay.classList.remove('opacity-0', 'pointer-events-none');
+      notifPanel.classList.remove('translate-x-full');
+    } else {
+      notifOverlay.classList.add('opacity-0', 'pointer-events-none');
+      notifPanel.classList.add('translate-x-full');
+    }
+  }
+
+  // Swap this with data from your backend/API
+  const notifications = [];
+
+  const notifList = document.getElementById('notifList');
+  notifications.forEach(n => {
+    const item = document.createElement('div');
+    item.className = 'flex gap-3 p-3 rounded-xl hover:bg-surface-container-high cursor-pointer transition-colors';
+    item.innerHTML = `
+      <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+        <span class="material-symbols-outlined ${n.color}" style="font-variation-settings: 'FILL' 1;">${n.icon}</span>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between items-start gap-2">
+          <span class="font-label-bold text-label-bold text-on-background text-[14px]">${n.title}</span>
+          <span class="text-[12px] text-on-surface-variant whitespace-nowrap">${n.date}</span>
+        </div>
+        <p class="text-[13px] text-on-surface-variant mt-1 leading-snug line-clamp-2">${n.text}</p>
+      </div>
+    `;
+    notifList.appendChild(item);
+  });
+</script>
+<script src="integration.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+1. cd backend
+2. pip install -r requirements.txt
+3. python seed.py
+4. python app.py
+5. Open frontend/index.html
