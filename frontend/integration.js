@@ -1,4 +1,4 @@
-const API_BASE = localStorage.getItem('LM_API_BASE') || 'http://127.0.0.1:5000';
+const API_BASE = localStorage.getItem('LM_API_BASE') || '';
 
 function getToken() {
   return localStorage.getItem('lm_token') || localStorage.getItem('access_token');
