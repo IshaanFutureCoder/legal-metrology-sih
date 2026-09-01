@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 
@@ -209,7 +210,11 @@ def generate_qr_code(certificate_number):
 
 @app.route("/", methods=["GET"])
 def home():
-    return send_from_directory("../frontend", "index.html")
+    frontend_dir = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "frontend"
+    )
+    return send_from_directory(frontend_dir, "index.html")
 
 # ============================================================
 # USER REGISTRATION
